@@ -1,54 +1,56 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ExceptionTitleList } from 'src/common/constants/exception-title-list.constants';
+import { CreateLabelcustomDto } from './dto/create-labelcustom.dto';
+import { UpdateLabelcustomDto } from './dto/update-labelcustom.dto';
+import { LabelcustomsRepository } from './labelcustoms.repository';
+import { Labelcustom } from './serializer/labelcustom.serializer';
 import { Pagination } from 'src/paginate';
 import { Not, ObjectLiteral } from 'typeorm';
-import { CategoriesRepository } from './categories.repository';
-import { CategoriesSearchFilterDto } from './dto/categoriesSearchFilterDto';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
 import { StatusCodesList } from 'src/common/constants/status-codes-list.constants';
-import { Category } from './serializer/category.serializer';
 import { ForbiddenException } from 'src/exception/forbidden.exception';
+import { ExceptionTitleList } from 'src/common/constants/exception-title-list.constants';
+import { LabelcustomSearchFilterDto } from './dto/labelcustoms.searchfilter.dto';
 
 @Injectable()
-export class CategoriesService {
+export class LabelcustomsService {
   constructor(
-    @InjectRepository(CategoriesRepository)
-    private readonly repository: CategoriesRepository
+    @InjectRepository(LabelcustomsRepository)
+    private readonly repository: LabelcustomsRepository
   ) {}
 
-  create(createCategoryDto: CreateCategoryDto): Promise<Category> {
-    return this.repository.createEntity(createCategoryDto);
+  create(createLabelcustomDto: CreateLabelcustomDto): Promise<Labelcustom> {
+    return this.repository.createEntity(createLabelcustomDto);
   }
   /**
-   * Get all category templates paginated list
+   * Get all Labelcustom templates paginated list
    * @param filter
    */
-  findAll(filter: CategoriesSearchFilterDto): Promise<Pagination<Category>> {
+  findAll(
+    filter: LabelcustomSearchFilterDto
+  ): Promise<Pagination<Labelcustom>> {
     return this.repository.paginate(
       filter,
       [],
-      ['id', 'headercustom_id', 'des_1', 'des_2']
+      ['lkey', 'lval', 'description']
     );
   }
 
-  findOne(id: number): Promise<Category> {
+  findOne(id: number): Promise<Labelcustom> {
     return this.repository.get(id);
   }
 
   /**
-   * Update Category by id
+   * Update Labelcustom by id
    * @param id
-   * @param updateCategoryDto
+   * @param updateLabelcustomDto
    */
   async update(
     id: number,
-    updateCategoryDto: UpdateCategoryDto
-  ): Promise<Category> {
+    updateLabelcustomDto: UpdateLabelcustomDto
+  ): Promise<Labelcustom> {
     const template = await this.repository.get(id);
     const condition: ObjectLiteral = {
-      des_1: updateCategoryDto.des_1
+      description: updateLabelcustomDto.description
     };
     condition.id = Not(id);
     const countSameDescription = await this.repository.countEntityByCondition(
@@ -56,14 +58,14 @@ export class CategoriesService {
     );
     if (countSameDescription > 0) {
       throw new UnprocessableEntityException({
-        property: 'headercustom_id',
+        property: 'lkey',
         constraints: {
           unique: 'already taken'
         }
       });
     }
     return this.repository.updateEntity(template, {
-      ...updateCategoryDto
+      ...updateLabelcustomDto
     });
   }
 

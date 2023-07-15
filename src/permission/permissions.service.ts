@@ -102,7 +102,9 @@ export class PermissionsService
     id: number,
     updatePermissionDto: UpdatePermissionDto
   ): Promise<Permission> {
-    const permission = await this.repository.get(id);
+    const permission = await this.repository.get(id, [], {
+      groups: [...basicFieldGroupsForSerializing]
+    });
     const condition: ObjectLiteral = {
       description: updatePermissionDto.description
     };

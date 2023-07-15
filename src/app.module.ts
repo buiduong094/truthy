@@ -30,6 +30,7 @@ import { CustomThrottlerGuard } from 'src/common/guard/custom-throttle.guard';
 import { DashboardModule } from 'src/dashboard/dashboard.module';
 import { AppController } from 'src/app.controller';
 import { CategoriesModule } from './categories/categories.module';
+import { LabelcustomsModule } from './labelcustoms/labelcustoms.module';
 import winstonConfig from 'src/config/winston';
 
 const appConfig = config.get('app');
@@ -73,7 +74,8 @@ const appConfig = config.get('app');
     RefreshTokenModule,
     TwofaModule,
     DashboardModule,
-    CategoriesModule
+    CategoriesModule,
+    LabelcustomsModule
   ],
   providers: [
     {

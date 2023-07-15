@@ -109,7 +109,7 @@ describe('PermissionsService', () => {
       repository.updateEntity.mockResolvedValue(mockPermission);
       repository.get.mockResolvedValue(mockPermission);
       const role = await service.update(1, updatePermissionDto);
-      expect(repository.get).toHaveBeenCalledWith(1);
+      expect(repository.get).toHaveBeenCalledWith(1, [], { groups: ['basic'] });
       expect(repository.updateEntity).toHaveBeenCalledWith(
         mockPermission,
         updatePermissionDto

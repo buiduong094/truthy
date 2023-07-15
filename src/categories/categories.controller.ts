@@ -30,8 +30,6 @@ export class CategoriesController {
 
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto): Promise<Category> {
-    console.log('createCategoryDto');
-    console.log(createCategoryDto);
     return this.categoriesService.create(createCategoryDto);
   }
 
@@ -39,12 +37,14 @@ export class CategoriesController {
   findAll(
     @Query() filter: CategoriesSearchFilterDto
   ): Promise<Pagination<Category>> {
-    console.log('oke');
     return this.categoriesService.findAll(filter);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(
+    @Param('id')
+    id: string
+  ): Promise<Category> {
     return this.categoriesService.findOne(+id);
   }
 
@@ -57,7 +57,7 @@ export class CategoriesController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.categoriesService.remove(+id);
   }
 }
