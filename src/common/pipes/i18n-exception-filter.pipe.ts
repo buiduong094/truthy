@@ -43,6 +43,7 @@ export class I18nExceptionFilterPipe implements ExceptionFilter {
         });
       }
       if (exceptionResponse.statusCode === HttpStatus.UNPROCESSABLE_ENTITY) {
+        console.log(exceptionResponse.message)
         if (
           exceptionResponse.hasOwnProperty('message') &&
           exceptionResponse.message instanceof Array

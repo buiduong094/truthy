@@ -22,6 +22,7 @@ import * as ormConfig from 'src/config/ormconfig';
 import * as throttleConfig from 'src/config/throttle-config';
 import { MailModule } from 'src/mail/mail.module';
 import { EmailTemplateModule } from 'src/email-template/email-template.module';
+import { ProductModule } from 'src/product/product.module';
 import { RefreshTokenModule } from 'src/refresh-token/refresh-token.module';
 import { I18nExceptionFilterPipe } from 'src/common/pipes/i18n-exception-filter.pipe';
 import { CustomValidationPipe } from 'src/common/pipes/custom-validation.pipe';
@@ -29,8 +30,6 @@ import { TwofaModule } from 'src/twofa/twofa.module';
 import { CustomThrottlerGuard } from 'src/common/guard/custom-throttle.guard';
 import { DashboardModule } from 'src/dashboard/dashboard.module';
 import { AppController } from 'src/app.controller';
-import { CategoriesModule } from './categories/categories.module';
-import { LabelcustomsModule } from './labelcustoms/labelcustoms.module';
 import winstonConfig from 'src/config/winston';
 
 const appConfig = config.get('app');
@@ -70,12 +69,10 @@ const appConfig = config.get('app');
     RolesModule,
     PermissionsModule,
     MailModule,
-    EmailTemplateModule,
+    ProductModule,
     RefreshTokenModule,
     TwofaModule,
-    DashboardModule,
-    CategoriesModule,
-    LabelcustomsModule
+    DashboardModule
   ],
   providers: [
     {
