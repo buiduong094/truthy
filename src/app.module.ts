@@ -32,6 +32,17 @@ import { AppController } from 'src/app.controller';
 import { CategoriesModule } from './categories/categories.module';
 import { LabelcustomsModule } from './labelcustoms/labelcustoms.module';
 import winstonConfig from 'src/config/winston';
+import { StudentsModule } from './student/students.module';
+import { CartsModule } from './cart/carts.module';
+import { CartInforsModule } from './cartinfor/cartinfors.module';
+import { CoperationsModule } from './coperation/coperations.module';
+import { CustomEmailsModule } from './customemail/customemails.module';
+import { FileUploadCustomsModule } from './fileuploadcustom/fileuploadcustoms.module';
+import { HeaderCustomsModule } from './headercustom/headercustoms.module';
+import { OrdersModule } from './order/orders.module';
+import { OrderInforsModule } from './orderinfor/orderinfors.module';
+import { ProductImagesModule } from './productimage/productimages.module';
+import { QuickLinksModule } from './quicklink/quicklinks.module';
 
 const appConfig = config.get('app');
 
@@ -75,16 +86,23 @@ const appConfig = config.get('app');
     TwofaModule,
     DashboardModule,
     CategoriesModule,
+    StudentsModule,
+    CartsModule,
+    CartInforsModule,
+    CoperationsModule,
+    CustomEmailsModule,
+    FileUploadCustomsModule,
+    HeaderCustomsModule,
+    OrdersModule,
+    OrderInforsModule,
+    ProductImagesModule,
+    QuickLinksModule,
     LabelcustomsModule
   ],
   providers: [
     {
       provide: APP_PIPE,
       useClass: CustomValidationPipe
-    },
-    {
-      provide: APP_GUARD,
-      useClass: CustomThrottlerGuard
     },
     {
       provide: APP_FILTER,
